@@ -1,5 +1,5 @@
 Date.prototype.yyyymmdd = function() {
-  var mm = this.getMonth() + 1; // getMonth() is zero-based
+  var mm = this.getMonth() + 1;
   var dd = this.getDate();
 
   return [this.getFullYear(),
@@ -25,6 +25,10 @@ angular.module('app', [])
   };
 })
 .controller('mainCtrl', function(factory, $scope) {
+
+  /*
+  * Global variables, binded two ways
+  */
   $scope.categoryFilters = [];
   $scope.dateIcon = 'fa fa-caret-up';
   $scope.filterAll = true;
@@ -33,6 +37,9 @@ angular.module('app', [])
   $scope.filterDate = true;
   $scope.ascendingDate = true;
 
+  /*
+  * GETs the required data from the api every time the app is first loaded and stores it in the $scope
+  */
   factory.getAll()
   .then(function(data) {
     $scope.data = data;
@@ -42,50 +49,22 @@ angular.module('app', [])
     });
   });
 
+  /*
+  * Reverses transactions order and changes icon, might require refactoring if transactions are not
+  * sorted by date by default
+  */
   $scope.reverseDateSort = function() {
     if ($scope.dateIcon === 'fa fa-caret-up') {
       $scope.dateIcon = 'fa fa-caret-down';
     } else {
       $scope.dateIcon = 'fa fa-caret-up';
     }
-    // if ($scope.ascendingDate) {    
-    //   $scope.data.transactionData.transactions.sort(function(a, b) {
-    //     var aa = a.transactionDate.split('-').join('');
-    //     var bb = b.transactionDate.split('-').join('');
-    //     return aa < bb ? -1 : (aa > bb ? 1 : 0);
-    //   });
-    // } else {
-    //   $scope.data.transactionData.transactions.sort(function(a, b) {
-    //     var bb = a.transactionDate.split('-').join('');
-    //     var aa = b.transactionDate.split('-').join('');
-    //     return aa < bb ? -1 : (aa > bb ? 1 : 0);
-    //   });
-    // }
-    // $scope.ascendingDate = !$scope.ascendingDate;
     $scope.data.transactionData.transactions.reverse();
   };
 
-  $scope.filterByCategory = function(category) {
-    $scope.filterAll = false;
-    if ($scope.categoryFilters.includes(category)) {
-      $scope.categoryFilters.splice($scope.categoryFilters.indexOf(category), 1);
-    } else {
-      $scope.categoryFilters.push(category);
-    }
-  };
-
-  // $scope.filterBetweenDates = function() {
-  //   console.log($scope.startDate.yyyymmdd());
-  //   console.log($scope.endDate.yyyymmdd());
-  //   var startDate = parseInt($scope.startDate.yyyymmdd());
-  //   var endDate = parseInt($scope.endDate.yyyymmdd());
-  //   var filteredTransactions = $scope.data.transactionData.transactions.filter(function(transaction) {
-  //     var transactionDate = parseInt(transaction.transactionDate.split('-').join(''));
-  //     return (transactionDate > startDate && transactionDate < endDate);
-  //   });
-  //   $scope.data.transactionData.transactions = filteredTransactions;
-  // };
-
+  /*
+  * Custom transaction filter function that filters between two input dates
+  */
   $scope.filterBetweenDates = function() {
     var startDate = parseInt($scope.startDate.yyyymmdd());
     var endDate = parseInt($scope.endDate.yyyymmdd());
@@ -101,6 +80,21 @@ angular.module('app', [])
     };
   };
 
+  /*
+  * Pushes category to filter by into storage array that contains all categories to be filtered
+  */
+  $scope.filterByCategory = function(category) {
+    $scope.filterAll = false;
+    if ($scope.categoryFilters.includes(category)) {
+      $scope.categoryFilters.splice($scope.categoryFilters.indexOf(category), 1);
+    } else {
+      $scope.categoryFilters.push(category);
+    }
+  };
+
+  /*
+  * Custom transaction filter function that filters through categories in an array
+  */
   $scope.filterTransactions = function() {
     return function(p) {
       if (!$scope.filterAll) {
@@ -116,16 +110,3 @@ angular.module('app', [])
   };
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
