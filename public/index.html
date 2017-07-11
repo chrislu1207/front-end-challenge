@@ -30,8 +30,12 @@
             <td>{{account.accountName}}</td>
             <td>{{account.transitNumber}}</td>
             <td>{{account.accountNumber}}</td>
-            <td>{{account.balance}}</td>
+            <td>${{account.balance}}</td>
             <td>{{account.balanceUpdated}}</td>
+          </tr>
+          <tr>
+            <td>Total Balance:</td>
+            <td>${{data.totalBalance}}</td>
           </tr>
         </tbody>
       </table>

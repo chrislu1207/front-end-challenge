@@ -21,7 +21,10 @@ angular.module('app', [])
   factory.getAll()
   .then(function(data) {
     $scope.data = data;
-    console.log($scope.data);
+    $scope.data.totalBalance = 0;
+    $scope.data.accounts.forEach(function(account) {
+      $scope.data.totalBalance += account.balance;
+    });
   });
 
   $scope.reverseDateSort = function() {
