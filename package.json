@@ -1,0 +1,24 @@
+{
+  "name": "front-end-challenge",
+  "version": "1.0.0",
+  "description": "Grow Front End Challenge",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chrislu1207/front-end-challenge.git"
+  },
+  "author": "Chris Lu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chrislu1207/front-end-challenge/issues"
+  },
+  "homepage": "https://github.com/chrislu1207/front-end-challenge#readme",
+  "dependencies": {
+    "express": "^4.15.3",
+    "nodemon": "^1.11.0"
+  }
+}
