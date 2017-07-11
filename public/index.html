@@ -11,13 +11,64 @@
   <div ng-app="app">
     <div class="content" ng-controller="mainCtrl">
       <h2>Accounts</h2>
-        <div ng-repeat="account in data.accounts">
-          <h3>{{account.accountName}}</h3>
-        </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Account ID</th>
+            <th>Institution Name</th>
+            <th>Account Name</th>
+            <th>Transit Number</th>
+            <th>Account Number</th>
+            <th>Balance</th>
+            <th>Balance Updated</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="account in data.accounts">
+            <td>{{account.accountId}}</td>
+            <td>{{account.institutionName}}</td>
+            <td>{{account.accountName}}</td>
+            <td>{{account.transitNumber}}</td>
+            <td>{{account.accountNumber}}</td>
+            <td>{{account.balance}}</td>
+            <td>{{account.balanceUpdated}}</td>
+          </tr>
+        </tbody>
+      </table>
       <h2>Transaction Data</h2>
-        <div ng-repeat="transaction in data.transactionData.transactions">
-          <h3>{{transaction.description}}</h3>
-        </div>
+      <select ng-model="accountFilter">
+        <option ng-repeat="account in data.accounts" value="{{account.accountId}}">{{account.accountName}}</option>
+      </select>
+      <select ng-model="categoryFilter">
+        <option ng-repeat="category in data.categories" value="{{category}}">{{category}}</option>
+      </select>
+      <table>
+        <thead>
+          <th>Account ID</th>
+          <th ng-click="reverseDateSort()">Transaction Date</th>
+          <th>Description</th>
+          <th>Amount</th>
+          <th>Deposit</th>
+          <th>Withdrawal</th>
+          <th>Running Balance</th>
+          <th>Category</th>
+          <th>Transaction ID</th>
+        </thead>
+        <tbody>
+          <tr ng-repeat="transaction in data.transactionData.transactions | filter: accountFilter | filter: categoryFilter">
+            <td>{{transaction.accountId}}</td>
+            <td>{{transaction.transactionDate}}</td>
+            <td>{{transaction.description}}</td>
+            <td>{{transaction.amount}}</td>
+            <td>{{transaction.deposit}}</td>
+            <td>{{transaction.withdrawal}}</td>
+            <td>{{transaction.runningBalance}}</td>
+            <td>{{transaction.category}}</td>
+            <td>{{transaction.transactionId}}</td>
+          </tr>
+        </tbody>
+      </table>
+
     </div>
   </div>
 </body>
