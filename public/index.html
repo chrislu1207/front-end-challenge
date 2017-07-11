@@ -4,6 +4,7 @@
   <title>Grow Front End Challenge</title>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://use.fontawesome.com/af3a5f4244.js"></script>
   <script src="app.js" defer></script>
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -36,20 +37,25 @@
           </tr>
         </tbody>
       </table>
-      <span>Total Balance: ${{data.totalBalance}}</span>
+      <h3>Total Balance: ${{data.totalBalance}}</h3>
+      <br>
       <h2>Transaction Data</h2>
-      <select ng-model="accountFilter">
+      <select id="accountSelect" ng-model="accountFilter">
         <option ng-repeat="account in data.accounts" value="{{account.accountId}}">{{account.accountName}}</option>
         <option value="">All Accounts</option>
       </select>
-      <div ng-repeat="category in data.categories">
-        <input ng-click="filterByCategory(category)" type="checkbox" name="{{category}}" value="{{category}}">{{category}}
+      <div id="selectBox">        
+        <div class="categorySelections" ng-repeat="category in data.categories">
+          <input ng-click="filterByCategory(category)" type="checkbox" name="{{category}}" value="{{category}}"><span>{{category}}</span>
+        </div>
+        <div class="categorySelections">  
+          <input ng-model="filterAll" type="checkbox" name="All" value="" checked><span>All Categories</span>
+        </div>
       </div>
-      <input ng-model="filterAll" type="checkbox" name="All" value="" checked>All Categories
       <table class="table table-bordered table-hover">
         <thead>
           <th>Account ID</th>
-          <th ng-click="reverseDateSort()">Transaction Date</th>
+          <th>Transaction Date <i ng-click="reverseDateSort()" class="{{dateIcon}}" aria-hidden="true"></i></th>
           <th>Description</th>
           <th>Amount</th>
           <th>Deposit</th>

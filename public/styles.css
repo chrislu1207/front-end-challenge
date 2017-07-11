@@ -3,9 +3,48 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-},
+  margin: 8%;
+  margin-top: 0%;
+}
+
+i:hover {
+  cursor: pointer;
+}
 
 .content {
   justify-content: center;
   align-items: center;
+}
+
+#accountSelect {
+  height: 40px;
+}
+
+#selectBox {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.categorySelections {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  width: 18%;
+  margin: 5px;
+  border: solid 1px black;
+}
+
+.categorySelections input:hover {
+  cursor: pointer;
+}
+
+.categorySelections input {
+  height: 10px;
+  width: 10px;
+}
+
+.categorySelections span {
+  margin: 2%;
 }

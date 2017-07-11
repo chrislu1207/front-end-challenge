@@ -16,6 +16,7 @@ angular.module('app', [])
 })
 .controller('mainCtrl', function(factory, $scope) {
   $scope.categoryFilters = [];
+  $scope.dateIcon = 'fa fa-caret-up';
   $scope.filterAll = true;
   $scope.ascendingDate = true;
 
@@ -29,6 +30,11 @@ angular.module('app', [])
   });
 
   $scope.reverseDateSort = function() {
+    if ($scope.dateIcon === 'fa fa-caret-up') {
+      $scope.dateIcon = 'fa fa-caret-down';
+    } else {
+      $scope.dateIcon = 'fa fa-caret-up';
+    }
     // if ($scope.ascendingDate) {    
     //   $scope.data.transactionData.transactions.sort(function(a, b) {
     //     var aa = a.transactionDate.split('-').join('');
