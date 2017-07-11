@@ -9,10 +9,10 @@
 </head>
 <body>
   <h1>Grow Front End Challenge</h1>
-  <div ng-app="app">
+  <div class="content" ng-app="app">
     <div class="content" ng-controller="mainCtrl">
       <h2>Accounts</h2>
-      <table>
+      <table class="table table-bordered table-hover">
         <thead>
           <tr>
             <th>Account ID</th>
@@ -34,26 +34,19 @@
             <td>${{account.balance}}</td>
             <td>{{account.balanceUpdated}}</td>
           </tr>
-          <tr>
-            <td>Total Balance:</td>
-            <td>${{data.totalBalance}}</td>
-          </tr>
         </tbody>
       </table>
+      <span>Total Balance: ${{data.totalBalance}}</span>
       <h2>Transaction Data</h2>
       <select ng-model="accountFilter">
         <option ng-repeat="account in data.accounts" value="{{account.accountId}}">{{account.accountName}}</option>
         <option value="">All Accounts</option>
       </select>
-<!--       <select ng-change="log()" ng-model="categoryFilter">
-        <option ng-repeat="category in data.categories" value="{{category}}">{{category}}</option>
-        <option value="">All Categories</option>
-      </select> -->
       <div ng-repeat="category in data.categories">
         <input ng-click="filterByCategory(category)" type="checkbox" name="{{category}}" value="{{category}}">{{category}}
       </div>
       <input ng-model="filterAll" type="checkbox" name="All" value="" checked>All Categories
-      <table>
+      <table class="table table-bordered table-hover">
         <thead>
           <th>Account ID</th>
           <th ng-click="reverseDateSort()">Transaction Date</th>
