@@ -42,9 +42,11 @@
       <h2>Transaction Data</h2>
       <select ng-model="accountFilter">
         <option ng-repeat="account in data.accounts" value="{{account.accountId}}">{{account.accountName}}</option>
+        <option value="">All Accounts</option>
       </select>
       <select ng-model="categoryFilter">
         <option ng-repeat="category in data.categories" value="{{category}}">{{category}}</option>
+        <option value="">All Categories</option>
       </select>
       <table>
         <thead>
