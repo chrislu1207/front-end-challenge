@@ -15,7 +15,8 @@ angular.module('app', [])
   };
 })
 .controller('mainCtrl', function(factory, $scope) {
-  $scope.data = {};
+  $scope.categoryFilters = [];
+  $scope.filterAll = true;
   $scope.ascendingDate = true;
 
   factory.getAll()
@@ -45,19 +46,40 @@ angular.module('app', [])
     $scope.data.transactionData.transactions.reverse();
   };
 
-})
-.filter('unique', function() {
-  return function(collection, keyname) {
-    var output = [];
-    var keys = [];
-
-    angular.forEach(collection, function(item) {
-      var key = item[keyname];
-      if (keys.indexOf(key) === -1) {
-        keys.push(key);
-        output.push(item);
-      }
-    });
-    return output;
+  $scope.filterByCategory = function(category) {
+    $scope.filterAll = false;
+    if ($scope.categoryFilters.includes(category)) {
+      $scope.categoryFilters.splice($scope.categoryFilters.indexOf(category), 1);
+    } else {
+      $scope.categoryFilters.push(category);
+    }
   };
+
+  $scope.filterTransactions = function() {
+    return function(p) {
+      if (!$scope.filterAll) {
+        for (var i = 0; i < $scope.categoryFilters.length; i++) {
+          if ($scope.categoryFilters.includes(p.category)) {
+            return true;
+          }
+        }
+      } else {
+        return true;
+      }
+    };
+  };
+
 });
+
+
+
+
+
+
+
+
+
+
+
+
+

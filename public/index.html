@@ -3,6 +3,7 @@
 <head>
   <title>Grow Front End Challenge</title>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
   <script src="app.js" defer></script>
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -44,10 +45,14 @@
         <option ng-repeat="account in data.accounts" value="{{account.accountId}}">{{account.accountName}}</option>
         <option value="">All Accounts</option>
       </select>
-      <select ng-model="categoryFilter">
+<!--       <select ng-change="log()" ng-model="categoryFilter">
         <option ng-repeat="category in data.categories" value="{{category}}">{{category}}</option>
         <option value="">All Categories</option>
-      </select>
+      </select> -->
+      <div ng-repeat="category in data.categories">
+        <input ng-click="filterByCategory(category)" type="checkbox" name="{{category}}" value="{{category}}">{{category}}
+      </div>
+      <input ng-model="filterAll" type="checkbox" name="All" value="" checked>All Categories
       <table>
         <thead>
           <th>Account ID</th>
@@ -61,7 +66,7 @@
           <th>Transaction ID</th>
         </thead>
         <tbody>
-          <tr ng-repeat="transaction in data.transactionData.transactions | filter: accountFilter | filter: categoryFilter">
+          <tr ng-repeat="transaction in data.transactionData.transactions | filter: accountFilter | filter: filterTransactions()">
             <td>{{transaction.accountId}}</td>
             <td>{{transaction.transactionDate}}</td>
             <td>{{transaction.description}}</td>
