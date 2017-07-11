@@ -44,13 +44,20 @@
         <option ng-repeat="account in data.accounts" value="{{account.accountId}}">{{account.accountName}}</option>
         <option value="">All Accounts</option>
       </select>
-      <div id="selectBox">        
+      <h4>Filter by Category</h4>
+      <div id="selectBox">
         <div class="categorySelections" ng-repeat="category in data.categories">
           <input ng-click="filterByCategory(category)" type="checkbox" name="{{category}}" value="{{category}}"><span>{{category}}</span>
         </div>
         <div class="categorySelections">  
           <input ng-model="filterAll" type="checkbox" name="All" value="" checked><span>All Categories</span>
         </div>
+      </div>
+      <div id="dateFilter">
+        <h4>Filter Between Dates</h4>
+        <span>Start Date: </span><input type="date" name="startDate" ng-model="startDate">
+        <span>End Date: </span><input type="date" name="endDate" ng-model="endDate">
+        <button ng-click="filterBetweenDates()">Filter</button>
       </div>
       <table class="table table-bordered table-hover">
         <thead>
@@ -65,7 +72,7 @@
           <th>Transaction ID</th>
         </thead>
         <tbody>
-          <tr ng-repeat="transaction in data.transactionData.transactions | filter: accountFilter | filter: filterTransactions()">
+          <tr ng-repeat="transaction in data.transactionData.transactions | filter: accountFilter | filter: filterTransactions() | filter: filterBetweenDates()">
             <td>{{transaction.accountId}}</td>
             <td>{{transaction.transactionDate}}</td>
             <td>{{transaction.description}}</td>
